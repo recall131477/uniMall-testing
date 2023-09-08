@@ -117,7 +117,6 @@ export default {
     </tbody>
   </table>
   <CurrencyDetail
-    v-if="filterCurrency.length"
     :filterCurrency="filterCurrency"
     :currentCurrencyId="currentCurrencyId"
     :isOpenDetail="isOpenDetail"
