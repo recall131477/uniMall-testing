@@ -5,6 +5,7 @@ import { getModalCurrencies } from '@/api';
 import type { CurrencyModalInfo } from '@/types';
 
 const props = defineProps<{
+  currentCurrencyName: string;
   isOpenModal: boolean;
 }>();
 
@@ -20,7 +21,7 @@ const currencyModalData = ref({
   CNY: 0,
 });
 
-const toggleModal = () => {
+const closeModal = () => {
   tempIsOpenModal.value = false;
 
   emit('toggle-modal', tempIsOpenModal.value);
@@ -67,7 +68,7 @@ export default {
   >
     <div
       class="fixed left-0 top-0 h-full w-full bg-black/30"
-      @click="toggleModal"
+      @click="closeModal"
     ></div>
     <div
       class="pointer-events-none relative mx-auto flex h-full max-w-[340px] items-center justify-center"
@@ -83,7 +84,7 @@ export default {
               type="button"
               class="flex w-full justify-between rounded-md bg-gray-300 px-4 py-5"
             >
-              <span class="text-[18px]">BTC / USD</span>
+              <span class="text-[18px]">{{ currentCurrencyName }} / USD</span>
               <span>{{ roundToTwoDecimalPlaces(currencyModalData.USD) }}</span>
             </button>
           </li>
@@ -92,7 +93,7 @@ export default {
               type="button"
               class="flex w-full justify-between rounded-md bg-gray-300 px-4 py-5"
             >
-              <span class="text-[18px]">BTC / EUR</span>
+              <span class="text-[18px]">{{ currentCurrencyName }} / EUR</span>
               <span>{{ roundToTwoDecimalPlaces(currencyModalData.EUR) }}</span>
             </button>
           </li>
@@ -101,7 +102,7 @@ export default {
               type="button"
               class="flex w-full justify-between rounded-md bg-gray-300 px-4 py-5"
             >
-              <span class="text-[18px]">BTC / CNY</span>
+              <span class="text-[18px]">{{ currentCurrencyName }} / CNY</span>
               <span>{{ roundToTwoDecimalPlaces(currencyModalData.CNY) }}</span>
             </button>
           </li>

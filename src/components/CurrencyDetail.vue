@@ -17,6 +17,7 @@ const emit = defineEmits<{
 const router = useRouter();
 
 const tempIsOpenDetail = ref(props.isOpenDetail);
+const currentCurrencyName = ref('');
 
 const isOpenModal = ref(false);
 
@@ -36,7 +37,13 @@ const handleGoBack = () => {
   });
 };
 
-const toggleModal = (modal: boolean) => {
+const toggleModal = () => {
+  isOpenModal.value = !isOpenModal.value;
+
+  currentCurrencyName.value = props.filterCurrency[0].CoinInfo.Name;
+};
+
+const closeModal = (modal: boolean) => {
   isOpenModal.value = modal;
 };
 
@@ -76,7 +83,7 @@ export default {
           </svg>
         </button>
         <h2 class="text-[20px]">{{ filterCurrency[0].CoinInfo.Name }}</h2>
-        <button type="button" @click="isOpenModal = !isOpenModal">
+        <button type="button" @click="toggleModal">
           <svg
             width="18"
             height="22"
@@ -124,5 +131,9 @@ export default {
       </div>
     </template>
   </div>
-  <CurrencyModal :isOpenModal="isOpenModal" @toggle-modal="toggleModal" />
+  <CurrencyModal
+    :currentCurrencyName="currentCurrencyName"
+    :isOpenModal="isOpenModal"
+    @toggle-modal="closeModal"
+  />
 </template>
